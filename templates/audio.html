@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio to Text Converter</title>
+</head>
+<body>
+    <h1>Audio to Text Converter</h1>
+    <form action="{{ url_for('index') }}" method="POST" enctype="multipart/form-data">
+        <label for="audio_file">Choose an audio file (MP3 or WAV):</label>
+        <input type="file" name="audio_file" id="audio_file" accept=".mp3, .wav" required>
+        <label for="target_language">Select Target Language:</label>
+        <select name="target_language" id="target_language">
+            {% for lang_name, lang_code in language_mapping.items() %}
+                <option value="{{ lang_code }}">{{ lang_name }}</option>
+            {% endfor %}
+        </select> <!-- Add this closing tag for the select element -->
+        <button type="submit">Convert</button>
+    </form>
+    {% if extracted_text %}
+        <h2>Extracted Text:</h2>
+        <p>{{ extracted_text }}</p>
+        <h3>Translated Text:</h3>
+        <p>{{ translated_text }}</p> <!-- Assuming you have a variable named 'translated_text' in your Flask app -->
+    {% endif %}
+</body>
+</html>
